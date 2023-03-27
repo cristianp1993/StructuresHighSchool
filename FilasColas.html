@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingo Tingo Tango</title>
+</head>
+<body>
+    
+
+
+    <script>
+        // Función para generar un número aleatorio entre 1 y max(Max es el parametro de entrada que es la cantidad de jugadores del arreglo jugadores)
+        function generarNumeroAleatorio(max) {
+            return Math.floor(Math.random() * max) + 1;
+        }
+
+        // Definimos la cola de jugadores y añadimos algunos jugadores
+        const jugadores = ["Sergio", "Danny", "Leo", "David", "Johan", "Edison", "Cristian","Martin","Daniel"];
+
+        // Definimos el número de veces que se pasa el tango antes de eliminar a un jugador
+        let vecesAPasar = generarNumeroAleatorio(jugadores.length);
+
+        console.log(`Comenzando el juego con ${jugadores.length} jugadores. Se pasará el tango ${vecesAPasar} veces antes de eliminar a un jugador.`);
+        
+        // Mientras quede más de un jugador en la cola
+        while (jugadores.length > 1) {
+            // Pasamos el tango un número aleatorio de veces
+            for (let i = 1; i <= vecesAPasar; i++) {
+                // Sacamos el primer jugador de la cola y lo añadimos al final
+                jugadores.push(jugadores.shift());
+            }
+            // Eliminamos al jugador al que le ha llegado el tango
+            const jugadorEliminado = jugadores.shift();
+            console.log(`Eliminado el jugador ${jugadorEliminado}. Quedan ${jugadores.length} jugadores en la cola.`);
+
+            // Generamos un nuevo número de veces a pasar el tango
+            vecesAPasar = generarNumeroAleatorio(jugadores.length);
+        }
+
+        // Solo queda un jugador en la cola, que es el ganador
+        const ganador = jugadores[0];
+        console.log(`El ganador es ${ganador}. Felicidades!`);
+    </script>
+</body>
+</html>

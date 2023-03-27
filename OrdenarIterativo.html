@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function iterativeSort(arr) {
+        const len = arr.length;
+        
+        for (let i = 0; i < len; i++) {
+            for (let j = i + 1; j < len; j++) {
+            if (arr[j] < arr[i]) {
+                const temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            }
+        }
+        
+        return arr;
+        }
+
+        // Ejemplo de uso
+        const arr = [5, 3, 8, 4, 2];
+        console.log(iterativeSort(arr)); // [2, 3, 4, 5, 8]
+    </script>
+</body>
+</html>

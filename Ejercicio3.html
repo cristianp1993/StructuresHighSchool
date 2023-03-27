@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+<body>
+    <!-- Escribir un programa que permita visualizar el triángulo de Pascal:
+              1
+             1 1
+           1 2 1
+          1 3 3 1
+        1 4 6 4 1
+      1 5 10 10 5 1
+    1 6 15 20 15 6 1
+En el triángulo de Pascal, cada número es la suma de los dos números situados encima de él. Este problema se debe resolver utilizando un array de una sola dimensión. -->
+
+        <script>
+// definimos la cantidad de filas que queremos mostrar
+const numRows = 7;
+
+// creamos un array de una dimensión para almacenar los valores
+const pascal = new Array(numRows);
+
+// inicializamos la primera fila con un 1
+pascal[0] = [1];
+
+// iteramos sobre las filas restantes
+for (let i = 1; i < numRows; i++) {
+  // creamos un nuevo array para esta fila
+  const row = new Array(i + 1);
+  
+  // inicializamos el primer y último valor de la fila con un 1
+  row[0] = 1;
+  row[i] = 1;
+  
+  // iteramos sobre los valores intermedios y los calculamos como la suma de los valores superiores
+  for (let j = 1; j < i; j++) {
+    row[j] = pascal[i - 1][j - 1] + pascal[i - 1][j];
+  }
+  
+  // almacenamos la fila en el array principal
+  pascal[i] = row;
+}
+
+// imprimimos el triángulo de Pascal en la consola
+for (let i = 0; i < numRows; i++) {
+  // agregamos espacios en blanco al principio para centrar la fila
+  const spaces = ' '.repeat((numRows - i - 1) * 2);
+  
+  // imprimimos los valores separados por espacios
+  console.log(spaces + pascal[i].join(' '));
+}
+        </script>
+</body>
+</html>

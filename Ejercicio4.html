@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+    <!-- Los resultados de las últimas elecciones a alcalde en azeroth han sido los siguientes:
+
+Imprimir la tabla anterior con cabeceras incluidas.
+Calcular e imprimir el número total de votos recibidos por cada candidato y el porcentaje del total de votos emitidos. Asimismo, visualizar el candidato más votado.
+Si algún candidato recibe más del 50 por ciento de los votos, el programa imprimirá un mensaje declarándole ganador.
+Si ningún candidato recibe más del 50 por ciento de los votos, el programa debe imprimir el nombre de los dos candidatos más votados, que serán los que pasen a la segunda ronda de las elecciones.
+ -->
+ <h1>Resultados de las Elecciones de Azeroth</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Municipio</th>
+				<th>Candidato A</th>
+				<th>Candidato B</th>
+				<th>Candidato C</th>
+				<th>Candidato D</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>194</td>
+				<td>48</td>
+				<td>206</td>
+				<td>45</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>180</td>
+				<td>20</td>
+				<td>320</td>
+				<td>16</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>221</td>
+				<td>90</td>
+				<td>140</td>
+				<td>20</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>432</td>
+				<td>50</td>
+				<td>821</td>
+				<td>14</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>820</td>
+				<td>61</td>
+				<td>946</td>
+				<td>18</td>
+			</tr>
+		</tbody>
+	</table>
+    <br>
+	<h2>Total de Votos</h2>
+	<p>Candidato A: <span id="candidatoA"></span></p>
+	<p>Candidato B: <span id="candidatoB"></span></p>
+	<p>Candidato C: <span id="candidatoC"></span></p>
+	<p>Candidato D: <span id="candidatoD"></span></p>
+	<br>
+	<h2>Candidato Ganador</h2>
+	<p id="ganador"></p>
+    
+    <script>
+		// obtenemos las celdas de la tabla y las almacenamos en un array bidimensional
+		const table = document.querySelector('table');
+		const rows = table.getElementsByTagName('tr');
+		const numRows = rows.length;
+		const numCols = rows[0].getElementsByTagName('td').length;
+        console.log(numCols)
+		const results = [];
+		for (let i = 1; i < numRows; i++) {
+			const row = rows[i];
+			const rowData = [];
+			for (let j = 1; j < numCols; j++) {
+				rowData.push(parseInt(row.getElementsByTagName('td')[j].innerHTML));
+			}
+			results.push(rowData);
+		}
+
+		// calculamos los totales de votos para cada candidato y el porcentaje del total de votos emitidos
+		const totalVotes = [0, 0, 0, 0];
+		const totalCast = results.reduce((acc, cur) => acc + cur.reduce((a, c) => a + c, 0),);
+	results.forEach(row => {
+		row.forEach((votes, i) => {
+			totalVotes[i] += votes;
+        });
+        // console.log(results)
+	});
+	const percentCast = (totalCast / (numRows - 1) / numCols * 100).toFixed(2);
+
+	// obtenemos el candidato con más votos
+	const maxVotes = Math.max(...totalVotes);
+	const maxIndex = totalVotes.indexOf(maxVotes);
+    //console.log(results)
+
+	// imprimimos los resultados
+	document.getElementById('candidatoA').innerHTML = totalVotes[0] + ' (' + ((totalVotes[0] / totalCast * 100).toFixed(2)) + '%)';
+	document.getElementById('candidatoB').innerHTML = totalVotes[1] + ' (' + ((totalVotes[1] / totalCast * 100).toFixed(2)) + '%)';
+	document.getElementById('candidatoC').innerHTML = totalVotes[2] + ' (' + ((totalVotes[2] / totalCast * 100).toFixed(2)) + '%)';
+	document.getElementById('candidatoD').innerHTML = totalVotes[3] + ' (' + ((totalVotes[3] / totalCast * 100).toFixed(2)) + '%)';
+
+	if (maxVotes / totalCast > 0.5) {
+		document.getElementById('ganador').innerHTML = 'El ganador es el Candidato ' + String.fromCharCode(maxIndex + 65) + ' con ' + maxVotes + ' votos.';
+	} else {
+		let secondPlace = null;
+		let secondVotes = 0;
+		totalVotes.forEach((votes, i) => {
+			if (i !== maxIndex && votes > secondVotes) {
+				secondPlace = i;
+				secondVotes = votes;
+			}
+		});
+		document.getElementById('ganador').innerHTML = 'Los dos candidatos más votados son el Candidato ' + String.fromCharCode(maxIndex + 65) + ' y el Candidato ' + String.fromCharCode(secondPlace + 65) + '.';
+	}
+</script>
+
+</body>
+</html>

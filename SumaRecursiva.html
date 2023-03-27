@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma Recursiva</title>
+</head>
+<body>
+
+    <div class="number">
+        <div>
+            <label for="">Ingrese un numero</label>
+        </div>
+        <input type="number" name="" id="number">
+    </div>
+    <div class="result">
+        <div>
+            <label for="">El resultado de sumar desde <span id="numberSpan"></span> valor hasta 1 es:</label>
+        </div>
+        <input type="number" id="result" readonly>
+    </div>
+    <script>
+        const number = document.getElementById("number")
+        const numberFin = document.getElementById("result")        
+        number.addEventListener("change",()=>{
+
+            document.getElementById("numberSpan").innerHTML = number.value
+            numberFin.value = suma(Number(number.value))        
+        });
+
+        function suma(n){            
+            if(n==0) {
+                return n
+            }else if (n >= 1) {                    
+            
+                return n + suma(n-1)
+            }
+        }
+    </script>
+</body>
+</html>

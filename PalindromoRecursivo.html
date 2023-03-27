@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindromo</title>
+</head>
+<body>
+    <script>
+
+        const palabra =window.prompt("Introduzca palabra o frase");
+        const resultado = esPalindromo(palabra)
+
+        if(resultado){
+            alert(`la lapabra o frase  ${palabra} es un palindromo`)
+        }else{
+            alert(`la lapabra o frase  ${palabra} NO es un palindromo`)
+        }
+
+        function esPalindromo(cadena) {
+            // Convertir la cadena a minúsculas y eliminar los espacios en blanco
+            cadena = cadena.toLowerCase().replace(/\s/g, '');
+
+            // Casos base
+            if (cadena.length === 0 || cadena.length === 1) {
+                return true;
+            }
+
+            // Comprobar si los extremos de la cadena son iguales
+            if (cadena[0] === cadena[cadena.length - 1]) {
+                // Llamar recursivamente a la función con la subcadena central
+                return esPalindromo(cadena.substring(1, cadena.length - 1));
+            } else {
+                // Si los extremos no son iguales, la cadena no es un palíndromo
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
